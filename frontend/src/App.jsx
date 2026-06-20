@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import ProtectedRoute from './components/ProtectedRoute';
+import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
@@ -14,6 +15,10 @@ function App() {
     <div className="app-shell">
       {token ? <Navbar /> : null}
       <Routes>
+        <Route
+          path="/"
+          element={token ? <Navigate to="/dashboard" replace /> : <LandingPage />}
+        />
         <Route
           path="/login"
           element={token ? <Navigate to="/dashboard" replace /> : <LoginPage />}
@@ -38,7 +43,7 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="*" element={<Navigate to={token ? '/dashboard' : '/login'} replace />} />
+        <Route path="*" element={<Navigate to={token ? '/dashboard' : '/'} replace />} />
       </Routes>
     </div>
   );
